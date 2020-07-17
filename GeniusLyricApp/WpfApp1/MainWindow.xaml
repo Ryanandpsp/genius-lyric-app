@@ -7,6 +7,30 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TextBox Text=""
+                TextWrapping="Wrap"
+                 Name="SongArtistInput" 
+                 Width="115"
+                 Height="30" 
+                 />
+        <TextBox Text=""
+            TextWrapping="Wrap"
+            x:Name="SongTitleInput" 
+                 Width="115"
+                 Height="30" Margin="476,194,201,195" 
+                 />
+        <TextBox 
+            HorizontalAlignment="left"
+            Width="243" Margin="10,81,0,53"
+            Name="DisplayText1"
+            />
+        <Button 
+                Content="Search"
+                Width="75"
+                Height="30"
+                Name="SearchButton"
+                Background="AliceBlue"
+                Click="Search_Click" Margin="428,268,289,121" 
+            />
     </Grid>
 </Window>
