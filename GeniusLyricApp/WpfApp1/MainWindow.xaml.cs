@@ -27,15 +27,24 @@ namespace WpfApp1
         }
         private void Search_Click(object sender, RoutedEventArgs e)
         {
-            //String argument1 = InputText1.Text;
             String scriptOut;
+
+            scriptOut = Lyric_Search(SongTitleInput.Text, SongArtistInput.Text);
+            DisplayText1.Text = scriptOut;
+        }
+
+        private String Lyric_Search (String songTitle, String artistName)
+        {
+            
+            String scriptOut;
+            String SongTitle = songTitle;
+            String ArtistName = artistName;
+
+            //Set path and args for script execution
             String pyScriptPath = @"""C:\Users\r_liu\Desktop\Home Projects\Genius Lyric App\genius-lyric-app\GeniusLyricPythonScript\lyricsearch.py""";
             String pyScriptArgs = "";
-
-            String SongTitle = SongTitleInput.Text;
-            String ArtistName = SongArtistInput.Text;
-            pyScriptArgs = " "+ '\u0022' + SongTitle + '\u0022' + " " + '\u0022' +  ArtistName + "\"";
-
+            pyScriptArgs = " " + '\u0022' + SongTitle + '\u0022' + " " + '\u0022' + ArtistName + "\"";
+            
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = @"python.exe";
             startInfo.Arguments = pyScriptPath + pyScriptArgs;
@@ -47,9 +56,11 @@ namespace WpfApp1
                 using (StreamReader s = p.StandardOutput)
                 {
                     scriptOut = s.ReadToEnd();
-                    DisplayText1.Text = scriptOut;
+                    return scriptOut;
+                    
                 }
             }
+
         }
     }
 }
