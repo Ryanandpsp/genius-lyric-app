@@ -30,7 +30,7 @@
                 Height="30"
                 Name="SearchButton"
                 Background="AliceBlue"
-                Click="Search_Click" Margin="428,268,289,121" 
+                Click="SearchClick" Margin="428,268,289,121" 
             />
     </Grid>
 </Window>

@@ -25,15 +25,15 @@ namespace WpfApp1
         {
             InitializeComponent();
         }
-        private void Search_Click(object sender, RoutedEventArgs e)
+        private void SearchClick(object sender, RoutedEventArgs e)
         {
             String scriptOut;
 
-            scriptOut = Lyric_Search(SongTitleInput.Text, SongArtistInput.Text);
+            scriptOut = LyricSearch(SongTitleInput.Text, SongArtistInput.Text);
             DisplayText1.Text = scriptOut;
         }
 
-        private String Lyric_Search (String songTitle, String artistName)
+        private String LyricSearch (String songTitle, String artistName)
         {
             
             String scriptOut;
@@ -45,6 +45,7 @@ namespace WpfApp1
             String pyScriptArgs = "";
             pyScriptArgs = " " + '\u0022' + SongTitle + '\u0022' + " " + '\u0022' + ArtistName + "\"";
             
+            //Start the process for python script
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.FileName = @"python.exe";
             startInfo.Arguments = pyScriptPath + pyScriptArgs;
@@ -60,6 +61,11 @@ namespace WpfApp1
                     
                 }
             }
+
+        }
+
+        private String SpotifyGetCurrent ()
+        {
 
         }
     }
