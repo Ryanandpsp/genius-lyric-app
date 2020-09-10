@@ -1,11 +1,8 @@
 import socket
-from . oauth2 import *
-
+import lyricapp.oauth2stuff
 from http.server import BaseHTTPRequestHandler
 from io import BytesIO
 from urllib.parse import parse_qs
-
-import requests
 import sys
 
 
