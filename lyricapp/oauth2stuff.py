@@ -2,6 +2,9 @@ from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs
 from io import BytesIO
 
+import urllib.parse as urlparse
+
+
 __all__= [
     "parse_auth_code",
     "HTTPRequest",
@@ -33,3 +36,8 @@ def parse_auth_code (pathstring):
 def path_to_query_str (pathstring):
     querystring = pathstring.split("?", 1)[1]
     return querystring
+
+def get_auth_url(payload):
+    urlparam = urlparse.urlencode(payload)
+    authurl = "%s?%s" % ("https://accounts.spotify.com/authorize", urlparam)
+    return authurl
