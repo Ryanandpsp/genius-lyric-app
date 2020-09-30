@@ -17,7 +17,7 @@ console.log(rh.getAuthUrl(payload, AuthBaseUrl).toString());
 
 var server = http.createServer(function (req, res) {
     console.log(req.url)
-    var requrl = new URL(req.url, `http://${request.headers.host}`);
+    var requrl = new URL(req.url, `http://${req.headers.host}`);
     res.writeHead(200, { 'Content-Type': 'text/plain' });
 
     if (requrl.pathname === "/authorize") {
