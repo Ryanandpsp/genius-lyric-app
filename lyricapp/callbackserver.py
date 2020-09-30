@@ -19,6 +19,7 @@ def start_server():
         try:
             rawrequeststring = connection.recv(4096)
             request = HTTPRequest(rawrequeststring)
+            print(rawrequeststring)
             # this is the auth code
             print(parse_auth_code(request.path))
 

@@ -4,7 +4,7 @@ import os
 import subprocess
 import callbackserver
 
-client_id = "8e8a7f221fa84c71a6c31e5eb830bea5"
+client_id = "";
 # client_secret =
 redirect_uri = "https://www.google.ca/"
 

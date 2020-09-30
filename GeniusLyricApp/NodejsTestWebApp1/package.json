@@ -5,5 +5,8 @@
   "main": "server.js",
   "author": {
     "name": ""
+  },
+  "dependencies": {
+    "spotify-web-api-node": "^4.0.0"
   }
 }
