@@ -12,7 +12,7 @@ var payload = {
 };
 var AuthBaseUrl = "https://accounts.spotify.com/authorize";
 
-console.log(SPOTIFY_CLIENT_ID);
+console.log(clientid);
 
 
 console.log(rh.getAuthUrl(payload, AuthBaseUrl).toString());
