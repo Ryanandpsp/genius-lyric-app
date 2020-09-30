@@ -12,15 +12,23 @@ var payload = {
 };
 var AuthBaseUrl = "https://accounts.spotify.com/authorize";
 
-console.log(clientid);
-
 
 console.log(rh.getAuthUrl(payload, AuthBaseUrl).toString());
 
 var server = http.createServer(function (req, res) {
     console.log(req.url)
+    var requrl = new URL(req.url, `http://${request.headers.host}`);
     res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello World\n');
+
+    if (requrl.pathname === "/authorize") {
+        res.writeHead(301, { Location: 'rh.getAuthUrl(payload, AuthBaseUrl).toString()'});
+    }
+    else if (requrl.pathname === "/callback") {
+        //get auth code and exchange for access token then redirect
+        res.end('Redirecting\n');
+    }
+    else { res.end('Hello World\n');}
+    
 });
 
 server.listen(port, () => {
