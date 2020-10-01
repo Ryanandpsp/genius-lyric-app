@@ -22,7 +22,7 @@ var server = http.createServer(function (req, res) {
     console.log(requrl.pathname)
     if (requrl.pathname === "/authorize") {
         //redirect to spotify for authorization
-        res.writeHead(301, { Location: 'http://google.ca' });
+        res.writeHead(301, { Location: rh.getAuthUrl(payload, AuthBaseUrl).toString() });
         console.log("test");
         res.end();
     }
