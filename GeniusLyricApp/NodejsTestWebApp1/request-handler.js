@@ -1,10 +1,10 @@
 ﻿var http = require('http');
 var url = require('url');
+var querystring = require('querystring')
 
 function getAuthUrl(dict, AuthBaseUrl) {
-    var urlparam = new URLSearchParams(dict);
-    var authurl = new URL(AuthBaseUrl);
-    authurl.search = urlparam.toString();
+    var urlparam = querystring.stringify(dict);
+    var authurl = AuthBaseUrl + urlparam;
     return authurl;
 }
 

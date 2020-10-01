@@ -2,18 +2,21 @@
 var http = require('http');
 var url = require('url');
 var rh = require("./request-handler");
+;
 
 var port = process.env.PORT || 1337;
 var clientid = process.env.SPOTIFY_CLIENT_ID;
 var scopeList = ["user-read-currently-playing", "user-read-playback-state"];
 var payload = {
     "client_id": clientid, "response_type": "code",
-    "redirect_uri": "http://localhost:1337/callback/", "state": scopeList
+    "redirect_uri": "http://192.168.0.9:1337/callback", "state": scopeList
 };
-var AuthBaseUrl = "https://accounts.spotify.com/authorize";
+var AuthBaseUrl = "https://accounts.spotify.com/authorize?";
 
 
 console.log(rh.getAuthUrl(payload, AuthBaseUrl).toString());
+
+
 
 var server = http.createServer(function (req, res) {
     
@@ -22,8 +25,7 @@ var server = http.createServer(function (req, res) {
     console.log(requrl.pathname)
     if (requrl.pathname === "/authorize") {
         //redirect to spotify for authorization
-        res.writeHead(301, { Location: rh.getAuthUrl(payload, AuthBaseUrl).toString() });
-        console.log("test");
+        res.writeHead(301, { Location: rh.getAuthUrl(payload, AuthBaseUrl).toString()});
         res.end();
     }
     else if (requrl.pathname === "/callback") {
