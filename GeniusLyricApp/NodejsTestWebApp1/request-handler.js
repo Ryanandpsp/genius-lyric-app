@@ -8,8 +8,8 @@ function getAuthUrl(dict, AuthBaseUrl) {
     return authurl;
 }
 
-function requestHandler(req, res) {
-
+function frontendRequestHandler(req, res) {
+    
 }
 
 exports.getAuthUrl = getAuthUrl;

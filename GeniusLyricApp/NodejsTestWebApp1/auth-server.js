@@ -8,6 +8,7 @@ const axios = require("axios");
 var port = process.env.PORT || 1337;
 var clientid = process.env.SPOTIFY_CLIENT_ID;
 var scopeList = ["user-read-currently-playing", "user-read-playback-state"];
+const frontendServer = process.env.FRONTEND_SERVER_ADDRESS;
 
 
 var payload = {
@@ -49,7 +50,7 @@ var server = http.createServer(function (req, res) {
                 grant_type: 'authorization_code'
             },
             headers: {
-                'Authorization': 'Basic ' + (new Buffer(
+                'Authorization': 'Basic ' + (new Buffer.alloc(
                     process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
                 ).toString('base64'))
             },
@@ -58,8 +59,14 @@ var server = http.createServer(function (req, res) {
         //post request
         axios(config).
             then(function (response) {
-            console.log(response.data);
-
+                //auto redirect to frontend server with access token
+                let frontURL = new URL(frontendServer);
+                frontURL.searchParams.append({
+                    access_code: response.data.access_token,
+                    refresh_token: response.data.refresh_token
+                });
+                
+                res.writeHead(301, { Location:frontURL});
             })
             .catch(error => {
                 console.error(error);
