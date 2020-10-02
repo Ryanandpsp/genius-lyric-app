@@ -1,13 +1,15 @@
 'use strict';
 var http = require('http');
 var url = require('url');
-var request = require("request");
 var rh = require("./request-handler");
+const axios = require("axios"); 
 
 
 var port = process.env.PORT || 1337;
 var clientid = process.env.SPOTIFY_CLIENT_ID;
 var scopeList = ["user-read-currently-playing", "user-read-playback-state"];
+
+
 var payload = {
     "client_id": clientid, "response_type": "code",
     "redirect_uri": "http://192.168.0.9:1337/callback", "state": scopeList
@@ -27,18 +29,22 @@ var server = http.createServer(function (req, res) {
 
     if (requrl.pathname === "/authorize") {
         //redirect to spotify for authorization
-        res.writeHead(301, { Location: rh.getAuthUrl(payload, AuthBaseUrl).toString()});
+        res.writeHead(301, { Location: rh.getAuthUrl(payload, AuthBaseUrl).toString() });
         res.end();
     }
 
     else if (requrl.pathname === "/callback") {
         //get auth code and exchange for access token then redirect
+
         let urlparams = requrl.searchParams;
         let code = urlparams.get("code");
         console.log(code);
-        let authOptions = {
+
+        //config for post request to get access token
+        let config = {
             url: 'https://accounts.spotify.com/api/token',
-            form: {
+            method: "get",
+            params: {
                 code: code,
                 redirect_uri: "http://192.168.0.9:1337/callback",
                 grant_type: 'authorization_code'
@@ -48,13 +54,13 @@ var server = http.createServer(function (req, res) {
                     process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
                 ).toString('base64'))
             },
-            json: true
         }
-        
-        request.post(authOptions, function (error, response, body) {
-            var access_token = body.access_token;
-            console.log(access_token);
-        })
+        //post request
+        axios(config).then(function (response) {
+            console.log(response.data);
+
+        });
+
         
         res.end('Redirecting\n');
     }
