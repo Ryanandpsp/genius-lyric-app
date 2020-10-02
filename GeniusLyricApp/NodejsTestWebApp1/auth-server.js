@@ -38,12 +38,11 @@ var server = http.createServer(function (req, res) {
 
         let urlparams = requrl.searchParams;
         let code = urlparams.get("code");
-        console.log(code);
 
         //config for post request to get access token
         let config = {
             url: 'https://accounts.spotify.com/api/token',
-            method: "get",
+            method: "post",
             params: {
                 code: code,
                 redirect_uri: "http://192.168.0.9:1337/callback",
@@ -54,7 +53,8 @@ var server = http.createServer(function (req, res) {
                     process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
                 ).toString('base64'))
             },
-        }
+        };
+
         //post request
         axios(config).
             then(function (response) {
