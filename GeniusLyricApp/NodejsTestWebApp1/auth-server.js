@@ -56,10 +56,14 @@ var server = http.createServer(function (req, res) {
             },
         }
         //post request
-        axios(config).then(function (response) {
+        axios(config).
+            then(function (response) {
             console.log(response.data);
 
-        });
+            })
+            .catch(error => {
+                console.error(error);
+            })
 
         
         res.end('Redirecting\n');
